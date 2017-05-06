@@ -1,7 +1,12 @@
 package com.example.vucuong12.kaistchicken;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
@@ -14,8 +19,12 @@ import android.view.MenuItem;
 
 import com.example.vucuong12.kaistchicken.Services.NotiService;
 
+import java.util.Calendar;
+
 public class MainActivity extends AppCompatActivity {
     String TAG = "MainActivity";
+    private AlarmManager alarmMgr;
+    private PendingIntent alarmIntent;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,4 +69,6 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+
 }
