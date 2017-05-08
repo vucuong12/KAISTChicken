@@ -47,8 +47,8 @@ public class NotiService extends Service {
     private Networking networking;
     public WifiListener wifiListener = null;
     KAISTMenu menu = null;
-    private AlarmManager alarmMgr;
-    private PendingIntent alarmIntent;
+
+
 
 
 
@@ -148,8 +148,8 @@ public class NotiService extends Service {
     }
 
     void triggerTimer(){
-        alarmMgr = (AlarmManager)this.getSystemService(Context.ALARM_SERVICE);
-        Intent myIntent;
+
+
 
         Calendar now = Calendar.getInstance();
         String dayName = now.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.SHORT, Locale.getDefault());
@@ -165,13 +165,13 @@ public class NotiService extends Service {
         }
 
 
-        //int oneDayTime = 24 * 60 * 60 * 1000;
-        int oneDayTime = 4000;
+        int oneDayTime = 24 * 60 * 60 * 1000;
+        //int oneDayTime = 4000;
         // Set the alarm to start at 8:30 a.m.
         Calendar lunchTime = Calendar.getInstance();
         lunchTime.setTimeInMillis(System.currentTimeMillis());
         lunchTime.set(Calendar.HOUR_OF_DAY, 10);
-        lunchTime.set(Calendar.MINUTE, 30);
+        lunchTime.set(Calendar.MINUTE, 36);
 
         Calendar dinnerTime = Calendar.getInstance();
         dinnerTime.setTimeInMillis(System.currentTimeMillis());
@@ -179,17 +179,21 @@ public class NotiService extends Service {
         dinnerTime.set(Calendar.MINUTE, 30);
 
         //1. Lunch
-        myIntent = new Intent(this, AlarmReceiver.class);
-        myIntent.putExtra("mealType", "Lunch");
-        myIntent.putExtra("hasChicken", hasLunchChicken);
-        alarmIntent = PendingIntent.getBroadcast(this, 0, myIntent, 0);
-        alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, lunchTime.getTimeInMillis(), oneDayTime, alarmIntent);
+        Intent myIntent1 = new Intent(this, AlarmReceiver.class);
+        myIntent1.putExtra("mealType", "Lunch");
+        myIntent1.putExtra("hasChicken", hasLunchChicken);
+        PendingIntent alarmIntent1 = PendingIntent.getBroadcast(this, 0, myIntent1, 0);
+        AlarmManager alarmMgr1 = (AlarmManager)this.getSystemService(Context.ALARM_SERVICE);
+
+        alarmMgr1.setRepeating(AlarmManager.RTC_WAKEUP, lunchTime.getTimeInMillis(), oneDayTime, alarmIntent1);
         //2. Dinner
-        myIntent = new Intent(this, AlarmReceiver.class);
-        myIntent.putExtra("mealType", "Dinner");
-        myIntent.putExtra("hasChicken", hasDinnerChicken);
-        alarmIntent = PendingIntent.getBroadcast(this, 1, myIntent, 0);
-        alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, dinnerTime.getTimeInMillis(), oneDayTime, alarmIntent);
+        Intent myIntent2 = new Intent(this, AlarmReceiver.class);
+        myIntent2.putExtra("mealType", "Dinner");
+        myIntent2.putExtra("hasChicken", hasDinnerChicken);
+        PendingIntent alarmIntent2 = PendingIntent.getBroadcast(this, 1, myIntent2, 0);
+        AlarmManager alarmMgr2 = (AlarmManager)this.getSystemService(Context.ALARM_SERVICE);
+
+        alarmMgr2.setRepeating(AlarmManager.RTC_WAKEUP, dinnerTime.getTimeInMillis(), oneDayTime, alarmIntent2);
     }
 
 
