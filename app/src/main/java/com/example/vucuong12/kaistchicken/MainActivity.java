@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.webkit.WebView;
 
 import com.example.vucuong12.kaistchicken.Services.NotiService;
 
@@ -29,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        displayMenu();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -68,6 +70,22 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    void displayMenu(){
+        Calendar now = Calendar.getInstance();
+        int day = now.get(Calendar.DATE);
+        int month = now.get(Calendar.MONTH) + 1;
+        int year = now.get(Calendar.YEAR) + 1;
+        if (day < 10) day = day + 10;
+        if (month < 10) month = month + 10;
+        String dayString = String.valueOf(day);
+        String monthString = String.valueOf(month);
+        String yearString = String.valueOf(year);
+
+        WebView myWebView = (WebView) findViewById(R.id.webview);
+        String url = "http://www.kaist.ac.kr/_prog/fodlst/index.php?site_dvs_cd=en&menu_dvs_cd=050303&dvs_cd=fclt&dvs_cd=west&stt_dt=" + yearString + "-" + monthString + "-" + dayString +"&site_dvs=";
+        myWebView.loadUrl(url);
     }
 
 
